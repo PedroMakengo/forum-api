@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   UseGuards,
@@ -29,7 +30,8 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
-  @Put()
+  @UseGuards(AuthGuard)
+  @Patch(':id')
   async updateUser(
     @Body() userData: Prisma.UserUpdateInput,
     @Param('id') id: string,
@@ -40,6 +42,7 @@ export class UserController {
     });
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async deleteUser(@Param('id') id: string): Promise<UserModel> {
     return this.userService.deleteUser({ id });
