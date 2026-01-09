@@ -7,7 +7,7 @@ export class AuthController {
   @Inject()
   private readonly authService: AuthService;
 
-  @Post('signin')
+  @Post()
   signin(@Body() body: Prisma.UserCreateInput) {
     return this.authService.signin(body);
   }

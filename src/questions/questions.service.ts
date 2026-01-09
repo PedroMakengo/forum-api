@@ -8,9 +8,9 @@ export class QuestionsService {
   @Inject()
   private readonly prisma: PrismaService;
 
-  async create(createQuestionDto: CreateQuestionDto, userId: string) {
+  async create(createQuestionDto: CreateQuestionDto, req: any) {
     return await this.prisma.question.create({
-      data: { ...createQuestionDto, userId },
+      data: { ...createQuestionDto, userId: req.userId.sub },
     });
   }
 

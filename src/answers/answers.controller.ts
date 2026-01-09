@@ -18,14 +18,14 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class AnswersController {
   constructor(private readonly answersService: AnswersService) {}
 
-  @Post()
+  @Post(':questionId')
   @UseGuards(AuthGuard)
   create(
     @Body() createAnswerDto: CreateAnswerDto,
     @Request() req: any,
     @Param('questionId') questionId: string,
   ) {
-    return this.answersService.create(createAnswerDto, req.sub, questionId);
+    return this.answersService.create(createAnswerDto, req, questionId);
   }
 
   @Get()

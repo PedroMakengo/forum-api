@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
-import type { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from 'src/database/prisma.service';
 import { connect } from 'http2';
 
 @Injectable()
@@ -9,11 +9,9 @@ export class AnswersService {
   @Inject()
   private readonly prisma: PrismaService;
 
-  async create(
-    createAnswerDto: CreateAnswerDto,
-    userId: string,
-    questionId: string,
-  ) {
+  async create(createAnswerDto: CreateAnswerDto, req: any, questionId: string) {
+    const userId = req.userId.sub;
+
     const newAnswer = {
       body: createAnswerDto.body,
       user: {

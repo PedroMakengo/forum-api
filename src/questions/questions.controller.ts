@@ -18,10 +18,10 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
+  @UseGuards(AuthGuard)
   create(@Body() createQuestionDto: CreateQuestionDto, @Request() req: any) {
-    return this.questionsService.create(createQuestionDto, req.sub);
+    return this.questionsService.create(createQuestionDto, req);
   }
 
   @Get()
